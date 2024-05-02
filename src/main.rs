@@ -15,6 +15,46 @@ fn read_line() -> String {
     input
 }
 
+fn read_nums_line<T>() -> Vec<T>
+where
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
+    let nums = read_line()
+        .trim()
+        .split_ascii_whitespace()
+        .map(|x| x.parse::<T>().unwrap())
+        .collect::<Vec<_>>();
+    nums
+}
+
+fn read_nums_multi_line<T>() -> Vec<T>
+where
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
+    let mut nums = vec![];
+    loop {
+        let input = read_line();
+        if input.trim().is_empty() {
+            break;
+        }
+        let num = input.trim().parse::<T>().unwrap();
+        nums.push(num);
+    }
+    nums
+}
+
+fn read_nums_multi_lines(n: usize) -> Vec<usize> {
+    let mut vec = vec![];
+
+    for _ in 0..n {
+        let num = read_line().trim().parse::<usize>().unwrap();
+        vec.push(num);
+    }
+    vec
+}
+
 #[cfg(test)]
 mod tests {
     use std::fs;
